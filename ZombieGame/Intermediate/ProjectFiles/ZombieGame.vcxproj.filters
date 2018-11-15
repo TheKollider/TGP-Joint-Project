@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<None Include="..\..\ZombieGame.uproject" />
+		<Filter Include="Source">
+			<UniqueIdentifier>{678E371F-6EC5-43D6-9EA8-DA87B7E9E984}</UniqueIdentifier>
+		</Filter>
+		<None Include="..\..\Source\ZombieGame.Target.cs">
+			<Filter>Source</Filter>
+		</None >
+		<None Include="..\..\Source\ZombieGameEditor.Target.cs">
+			<Filter>Source</Filter>
+		</None >
+		<Filter Include="Config">
+			<UniqueIdentifier>{B71AE1A2-04AB-4AC8-800D-50BF63A581CE}</UniqueIdentifier>
+		</Filter>
+		<None Include="..\..\Config\DefaultEditor.ini">
+			<Filter>Config</Filter>
+		</None >
+		<None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+			<Filter>Config</Filter>
+		</None >
+		<None Include="..\..\Config\DefaultEngine.ini">
+			<Filter>Config</Filter>
+		</None >
+		<None Include="..\..\Config\DefaultGame.ini">
+			<Filter>Config</Filter>
+		</None >
+		<None Include="..\..\Config\DefaultInput.ini">
+			<Filter>Config</Filter>
+		</None >
+		<Filter Include="Source\ZombieGame">
+			<UniqueIdentifier>{ABF34C14-95A3-486B-AEAF-3040CC3AB361}</UniqueIdentifier>
+		</Filter>
+		<None Include="..\..\Source\ZombieGame\ZombieGame.Build.cs">
+			<Filter>Source\ZombieGame</Filter>
+		</None >
+		<ClCompile Include="..\..\Source\ZombieGame\ZombieGame.cpp">
+			<Filter>Source\ZombieGame</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\ZombieGame\ZombieGame.h">
+			<Filter>Source\ZombieGame</Filter>
+		</ClInclude >
+		<ClCompile Include="..\..\Source\ZombieGame\ZombieGameCharacter.cpp">
+			<Filter>Source\ZombieGame</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\ZombieGame\ZombieGameCharacter.h">
+			<Filter>Source\ZombieGame</Filter>
+		</ClInclude >
+		<ClCompile Include="..\..\Source\ZombieGame\ZombieGameGameMode.cpp">
+			<Filter>Source\ZombieGame</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\ZombieGame\ZombieGameGameMode.h">
+			<Filter>Source\ZombieGame</Filter>
+		</ClInclude >
+		<ClCompile Include="..\..\Source\ZombieGame\ZombieGameHUD.cpp">
+			<Filter>Source\ZombieGame</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\ZombieGame\ZombieGameHUD.h">
+			<Filter>Source\ZombieGame</Filter>
+		</ClInclude >
+		<ClCompile Include="..\..\Source\ZombieGame\ZombieGameProjectile.cpp">
+			<Filter>Source\ZombieGame</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\ZombieGame\ZombieGameProjectile.h">
+			<Filter>Source\ZombieGame</Filter>
+		</ClInclude >
+	</ItemGroup>
+</Project>
