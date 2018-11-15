@@ -12,14 +12,17 @@ class ZOMBIEGAME_API AZombie : public ACharacter
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditAnywhere, Category = "Behaviour")
+	class UBehaviorTree* behaviorTree; //The Zombie's Behavior Tree
+
+public:
 	// Sets default values for this character's properties
 	AZombie();
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;	
 };
