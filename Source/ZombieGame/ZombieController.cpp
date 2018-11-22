@@ -9,8 +9,8 @@
 
 AZombieController::AZombieController()
 {
-	behaviorComp = CreateDefaultSubobject<UBehaviorTreeComponent>(FName("Behavior Tree"));
-	blackboardComp = CreateDefaultSubobject<UBlackboardComponent>(FName("Black Board"));
+	behaviorComp = CreateDefaultSubobject<UBehaviorTreeComponent>(FName("BehaviorTreeComp"));
+	blackboardComp = CreateDefaultSubobject<UBlackboardComponent>(FName("BlackBoardComp"));
 }
 
 void AZombieController::Possess(APawn * pawn)
@@ -38,6 +38,7 @@ void AZombieController::Possess(APawn * pawn)
 
 void AZombieController::Tick(float DeltaTime)
 {
-	blackboardComp->SetValueAsVector(FName("PlayerPosition"), UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)->GetActorLocation());
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, blackboardComp->GetValueAsVector(FName("PlayerPositon")).ToString());
+	ACharacter* player = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+
+	blackboardComp->SetValueAsVector(FName("PlayerPosition"), player->GetActorLocation());
 }

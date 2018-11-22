@@ -11,6 +11,10 @@ class ZOMBIEGAME_API AZombie : public ACharacter
 {
 	GENERATED_BODY()
 
+
+	UPROPERTY(VisibleAnywhere)
+	class USceneComponent* zombieRoot;
+
 public:
 	UPROPERTY(EditAnywhere, Category = "Behaviour")
 	class UBehaviorTree* behaviorTree; //The Zombie's Behavior Tree
