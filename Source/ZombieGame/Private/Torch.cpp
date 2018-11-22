@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Torch.h"
+#include "Engine.h"
+
 
 
 
@@ -23,20 +25,23 @@ ATorch::ATorch()
 	BatteryDrainPerTick = 0.05f;
 	
 	
+	
 }
 
 // Called when the game starts or when spawned
 void ATorch::BeginPlay()
 {
 	Super::BeginPlay();
-	//GetWorldTimerManager().SetTimer(this, &ATorch::BatteryDrain, DrainBatteryLifeTickTime, true);
+	
 }
 
 // Called every frame
 void ATorch::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	CurrentBatteryLife -= (DeltaTime * BatteryDrainPerTick);
+
+	
+	CurrentBatteryLife -= (DeltaTime * CurrentBatteryLife);
 
 	if (CurrentBatteryLife <= 0)
 	{
@@ -44,15 +49,21 @@ void ATorch::Tick(float DeltaTime)
 		CurrentBatteryLife = 0;
 		CanTurnOn();
 	}
+
+	
+
+	
 }
 
 void ATorch::TurnOn()
 {
+	
 	check(Light);
 	if (CanTurnOn())
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Torch is on"));
 		bLightIsOn = true;
-		Light->SetIntensity(15.0f);
+		Light->SetIntensity(3000.0f);
 		LightToggled.Broadcast(bLightIsOn);
 	}
 }
@@ -62,9 +73,11 @@ void ATorch::TurnOff()
 	check(Light);
 	if (!CanTurnOn())
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Torch is off"));
 		bLightIsOn = false;
 		Light->SetIntensity(0.0f);
 		LightToggled.Broadcast(bLightIsOn);
+		
 	}
 }
 
@@ -73,10 +86,12 @@ void ATorch::Toggle()
 	if (CanTurnOn())
 	{
 		TurnOn();
+		
 	}
 	else
 	{
 		TurnOff();
+		
 	}
 }
 
@@ -98,6 +113,5 @@ void ATorch::BatteryDrain()
 
 bool ATorch::CanTurnOn()
 {
-	
 	return (CurrentBatteryLife > 0.0f && !bLightIsOn);
 }

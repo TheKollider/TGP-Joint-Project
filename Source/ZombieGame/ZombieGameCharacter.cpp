@@ -11,6 +11,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
+#include "Torch.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -119,6 +120,8 @@ void AZombieGameCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 
 	// Bind fire event
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AZombieGameCharacter::OnFire);
+
+	PlayerInputComponent->BindAction("ToggleTorch", IE_Pressed, this, &AZombieGameCharacter::ToggleTorch);
 
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
@@ -269,6 +272,14 @@ void AZombieGameCharacter::MoveRight(float Value)
 	{
 		// add movement in that direction
 		AddMovementInput(GetActorRightVector(), Value);
+	}
+}
+
+void AZombieGameCharacter::ToggleTorch()
+{
+	if (_theTorch != nullptr)
+	{
+		_theTorch->Toggle();
 	}
 }
 

@@ -2,11 +2,13 @@
 
 #pragma once
 
+
 #include <Components/SpotLightComponent.h>
 #include <Components/StaticMeshComponent.h>
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Torch.generated.h"
+
 
 
 
@@ -21,6 +23,7 @@ class ZOMBIEGAME_API ATorch : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ATorch();
+
 
 protected:
 	// Called when the game starts or when spawned

@@ -2,10 +2,10 @@
 
 #pragma once
 
+#include "Torch.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "ZombieGameCharacter.generated.h"
-
 class UInputComponent;
 
 UCLASS(config=Game)
@@ -47,6 +47,9 @@ class AZombieGameCharacter : public ACharacter
 
 public:
 	AZombieGameCharacter();
+
+	UPROPERTY(EditAnywhere, Category = "Debug")
+	ATorch* _theTorch;
 
 protected:
 	virtual void BeginPlay();
@@ -93,6 +96,8 @@ protected:
 
 	/** Handles stafing movement, left and right */
 	void MoveRight(float Val);
+
+	void ToggleTorch();
 
 	/**
 	 * Called via input to turn at a given rate.
