@@ -1,7 +1,6 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "Torch.h"
-#include "Engine.h"
+#include "Engine/World.h"
+#include "TimerManager.h"
 
 
 
@@ -10,7 +9,7 @@
 // Sets default values
 ATorch::ATorch()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
@@ -23,16 +22,18 @@ ATorch::ATorch()
 	CurrentBatteryLife = MaxBatteryLife;
 	DrainBatteryLifeTickTime = 3.5f;
 	BatteryDrainPerTick = 0.05f;
-	
-	
-	
+
+
+
 }
 
 // Called when the game starts or when spawned
 void ATorch::BeginPlay()
 {
 	Super::BeginPlay();
+
 	
+
 }
 
 // Called every frame
@@ -40,8 +41,15 @@ void ATorch::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+
+	if (!CanTurnOn())
+	{
+		CurrentBatteryLife = CurrentBatteryLife - (DeltaTime * BatteryDrainPerTick);
+	}
+
 	
-	CurrentBatteryLife -= (DeltaTime * CurrentBatteryLife);
+
+	
 
 	if (CurrentBatteryLife <= 0)
 	{
@@ -50,14 +58,14 @@ void ATorch::Tick(float DeltaTime)
 		CanTurnOn();
 	}
 
-	
 
-	
+
+
 }
 
 void ATorch::TurnOn()
 {
-	
+
 	check(Light);
 	if (CanTurnOn())
 	{
@@ -77,7 +85,7 @@ void ATorch::TurnOff()
 		bLightIsOn = false;
 		Light->SetIntensity(0.0f);
 		LightToggled.Broadcast(bLightIsOn);
-		
+
 	}
 }
 
@@ -86,12 +94,12 @@ void ATorch::Toggle()
 	if (CanTurnOn())
 	{
 		TurnOn();
-		
+
 	}
 	else
 	{
 		TurnOff();
-		
+
 	}
 }
 

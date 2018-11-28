@@ -83,6 +83,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	uint32 bUsingMotionControllers : 1;
 
+	void ResetBattery();
+
 protected:
 	
 	/** Fires a projectile. */
@@ -99,6 +101,7 @@ protected:
 
 	void ToggleTorch();
 
+	
 	/**
 	 * Called via input to turn at a given rate.
 	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
