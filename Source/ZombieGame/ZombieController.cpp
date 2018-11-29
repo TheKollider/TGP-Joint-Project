@@ -6,6 +6,7 @@
 #include "BehaviorTree/BehaviorTree.h"
 #include "Zombie.h"
 #include "Engine.h"
+#include "ZombieGameCharacter.h"
 
 AZombieController::AZombieController()
 {
@@ -38,7 +39,7 @@ void AZombieController::Possess(APawn * pawn)
 
 void AZombieController::Tick(float DeltaTime)
 {
-	ACharacter* player = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+	AZombieGameCharacter* player = Cast<AZombieGameCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 
-	blackboardComp->SetValueAsVector(FName("PlayerPosition"), player->GetActorLocation());
+	blackboardComp->SetValueAsObject(FName("Player"), player);
 }
