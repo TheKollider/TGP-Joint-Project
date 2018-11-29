@@ -4,15 +4,13 @@
 #include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "Torch.h"
 #include "ZombieGameCharacter.h"
 
 
 // Sets default values
 ABatteryPickup::ABatteryPickup()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+ 	
 
 	Mesh_Component = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh_Component"));
 	Mesh_Component->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -47,10 +45,12 @@ void ABatteryPickup::NotifyActorBeginOverlap(AActor* OtherActor)
 
 	AZombieGameCharacter* myCharacter = Cast<AZombieGameCharacter>(OtherActor);
 
-	/*if (myCharacter)
+	if (myCharacter)
 	{
-		CurrentBatteryLife = 1.0f;
-	}*/
+		myCharacter->ResetBattery();
+
+		Destroy();
+	}
 
 }
 

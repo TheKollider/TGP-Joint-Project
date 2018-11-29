@@ -240,22 +240,19 @@ void AZombieGameCharacter::MoveRight(float Value)
 
 void AZombieGameCharacter::ToggleTorch()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Pressed F to pay respects."));
+	
 
 	if (_theTorch != nullptr)
 	{
 		_theTorch->Toggle();
 	}
-	else
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("_theTorch is nu"));
-	}
+	
 }
 
-//void AZombieGameCharacter::ResetBattery()
-//{
-//	ATorch::CurrentBatteryLife = 1.0f;
-//}
+void AZombieGameCharacter::ResetBattery()
+{
+	_theTorch->CurrentBatteryLife = 1.0f;
+}
 
 void AZombieGameCharacter::TurnAtRate(float Rate)
 {
