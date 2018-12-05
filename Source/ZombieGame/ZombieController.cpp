@@ -40,6 +40,12 @@ void AZombieController::Possess(APawn * pawn)
 void AZombieController::Tick(float DeltaTime)
 {
 	AZombieGameCharacter* player = Cast<AZombieGameCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
-
 	blackboardComp->SetValueAsObject(FName("Player"), player);
+}
+
+void AZombieController::SetState(int state)
+{
+	behaviorComp->StopTree();
+	blackboardComp->SetValueAsEnum(FName("ZombieState"), state);
+	behaviorComp->StartTree(*zombieParent->behaviorTree);
 }

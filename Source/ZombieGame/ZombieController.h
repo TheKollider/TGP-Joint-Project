@@ -21,6 +21,9 @@ public:
 	virtual void Possess(APawn* pawn) override;
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintCallable)
+		void SetState(int state);
+
 protected:
 	UBehaviorTreeComponent* behaviorComp;
 	UBlackboardComponent* blackboardComp;
