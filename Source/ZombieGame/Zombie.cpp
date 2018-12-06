@@ -6,8 +6,6 @@
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
 
-
-
 // Sets default values
 AZombie::AZombie()
 {
@@ -31,4 +29,9 @@ void AZombie::BeginPlay()
 void AZombie::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void AZombie::DealDamage(float damage)
+{
+	health -= damage;
 }

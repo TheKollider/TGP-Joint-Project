@@ -11,7 +11,6 @@ class ZOMBIEGAME_API AZombie : public ACharacter
 {
 	GENERATED_BODY()
 
-
 	UPROPERTY(VisibleAnywhere)
 	class USceneComponent* zombieRoot;
 
@@ -19,12 +18,17 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Behaviour")
 	class UBehaviorTree* behaviorTree; //The Zombie's Behavior Tree
 
+	UPROPERTY(EditAnywhere)
+		float health; //Zombie's Health
+
 public:
 	// Sets default values for this character's properties
 	AZombie();
 
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintCallable)
+		void DealDamage(float damage); //Used to deal damage to the Zombie's
 
 protected:
 	// Called when the game starts or when spawned

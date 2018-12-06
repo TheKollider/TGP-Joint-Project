@@ -3,6 +3,7 @@
 #include "ZombieGameProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
+#include "Zombie.h"
 
 AZombieGameProjectile::AZombieGameProjectile() 
 {
@@ -33,6 +34,13 @@ AZombieGameProjectile::AZombieGameProjectile()
 
 void AZombieGameProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
+	if (OtherActor->GetFName() == "ZombieSoldier")
+	{
+		AZombie* zombie = Cast<AZombie>(OtherActor);
+		zombie->DealDamage(20);
+		Destroy();
+	}
+
 	// Only add impulse and destroy projectile if we hit a physics
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{

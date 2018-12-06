@@ -41,6 +41,12 @@ void AZombieController::Tick(float DeltaTime)
 {
 	AZombieGameCharacter* player = Cast<AZombieGameCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	blackboardComp->SetValueAsObject(FName("Player"), player);
+
+	//Sets the Zombie's State to Dead if it's health gets to or below 0
+	if (zombieParent->health <= 0.0f)
+	{
+		SetState(3);
+	}
 }
 
 void AZombieController::SetState(int state)
