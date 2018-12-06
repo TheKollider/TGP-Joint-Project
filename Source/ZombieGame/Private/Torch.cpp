@@ -71,7 +71,7 @@ void ATorch::TurnOn()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Torch is on"));
 		bLightIsOn = true;
-		Light->SetIntensity(3000.0f);
+		Light->SetIntensity(300.0f);
 		LightToggled.Broadcast(bLightIsOn);
 	}
 }
