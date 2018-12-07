@@ -69,7 +69,7 @@ void ATorch::TurnOn()
 	check(Light);
 	if (CanTurnOn())
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Torch is on"));
+
 		bLightIsOn = true;
 		Light->SetIntensity(300.0f);
 		LightToggled.Broadcast(bLightIsOn);
@@ -81,7 +81,6 @@ void ATorch::TurnOff()
 	check(Light);
 	if (!CanTurnOn())
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Torch is off"));
 		bLightIsOn = false;
 		Light->SetIntensity(0.0f);
 		LightToggled.Broadcast(bLightIsOn);
