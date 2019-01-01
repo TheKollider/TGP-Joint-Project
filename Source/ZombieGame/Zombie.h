@@ -22,13 +22,16 @@ public:
 	class UBehaviorTree* behaviorTree; //The Zombie's Behavior Tree
 
 	UPROPERTY(EditAnywhere, Category = "Timeline")
-		class UCurveFloat* colourCurve;
+	class UCurveFloat* colourCurve;
 
 	//Delegate to be binded with TimelineFloatReturn()
 	FOnTimelineFloat GlowColourInterpFunction{};
 
 	UPROPERTY(EditAnywhere)
-		float health; //Zombie's Health
+	float health; //Zombie's Health
+
+	UPROPERTY(VisibleAnywhere)
+	bool dead = false;
 
 private:
 	FLinearColor glowColour;

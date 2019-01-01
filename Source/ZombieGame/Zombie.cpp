@@ -19,6 +19,8 @@ AZombie::AZombie()
 
 	glowColourTimeLine = CreateDefaultSubobject<UTimelineComponent>(TEXT("GlowColourTimeLine"));
 	GlowColourInterpFunction.BindUFunction(this, FName("GlowColourTimelineFloatReturn"));
+
+	Tags.Add(FName("Zombie"));
 }
 
 // Called when the game starts or when spawned
