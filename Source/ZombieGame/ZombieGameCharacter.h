@@ -51,6 +51,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Debug")
 	ATorch* _theTorch;
 
+private:
+	bool canFire;
+
 protected:
 	virtual void BeginPlay();
 
@@ -100,6 +103,10 @@ protected:
 	void MoveRight(float Val);
 
 	void ToggleTorch();
+
+	void EquipGun();
+
+	void EquipTorch();
 
 	
 	/**

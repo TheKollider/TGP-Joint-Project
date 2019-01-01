@@ -32,8 +32,7 @@ void ATorch::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
-
+	TurnOff(); //Setting the Light to be off by default
 }
 
 // Called every frame
@@ -121,5 +120,5 @@ void ATorch::BatteryDrain()
 
 bool ATorch::CanTurnOn()
 {
-	return (CurrentBatteryLife > 0.0f && !bLightIsOn);
+	return (CurrentBatteryLife > 0.0f && !bLightIsOn && torchActive);
 }

@@ -72,6 +72,8 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "Torch")
 		FTorchDrained LightDrained;
+
+	bool torchActive;
 	
 private:
 

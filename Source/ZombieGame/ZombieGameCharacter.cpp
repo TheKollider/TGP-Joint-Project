@@ -11,6 +11,7 @@
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 #include "Torch.h"
+#include "Components/StaticMeshComponent.h"
 #include "Engine/World.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
@@ -90,6 +91,8 @@ void AZombieGameCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
+	canFire = true;
+
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
 	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
 
@@ -123,6 +126,9 @@ void AZombieGameCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 
 	PlayerInputComponent->BindAction("ToggleTorch", IE_Pressed, this, &AZombieGameCharacter::ToggleTorch);
 
+	PlayerInputComponent->BindAction("EquipGun", IE_Pressed, this, &AZombieGameCharacter::EquipGun);
+	PlayerInputComponent->BindAction("EquipTorch", IE_Pressed, this, &AZombieGameCharacter::EquipTorch);
+
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
 
@@ -143,6 +149,12 @@ void AZombieGameCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 
 void AZombieGameCharacter::OnFire()
 {
+	//Checks if the Player is Able to fire (Which it can't when the Torch is equiped)
+	if (!canFire)
+	{
+		return;
+	}
+
 	// try and fire a projectile
 	if (ProjectileClass != NULL)
 	{
@@ -240,13 +252,34 @@ void AZombieGameCharacter::MoveRight(float Value)
 
 void AZombieGameCharacter::ToggleTorch()
 {
-	
-
 	if (_theTorch != nullptr)
 	{
 		_theTorch->Toggle();
 	}
 	
+}
+
+void AZombieGameCharacter::EquipGun()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Gun Equiped"));
+
+	FP_Gun->SetVisibility(true);
+	canFire = true;
+
+	_theTorch->Mesh->SetVisibility(false);
+	_theTorch->TurnOff();
+	_theTorch->torchActive = false;
+}
+
+void AZombieGameCharacter::EquipTorch()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Torch Equiped"));
+
+	FP_Gun->SetVisibility(false);
+	canFire = false;
+
+	_theTorch->Mesh->SetVisibility(true);
+	_theTorch->torchActive = true;
 }
 
 void AZombieGameCharacter::ResetBattery()
