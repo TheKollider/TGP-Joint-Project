@@ -47,6 +47,7 @@ void AZombieController::Tick(float DeltaTime)
 	if (!zombieParent->dead && zombieParent->health <= 0.0f)
 	{
 		zombieParent->dead = true;
+		blackboardComp->SetValueAsEnum(FName("Dead"), true);
 		zombieParent->GetCharacterMovement()->Deactivate();
 	
 
@@ -60,7 +61,19 @@ void AZombieController::SetState(int state)
 
 	blackboardComp->SetValueAsEnum(FName("ZombieState"), state);
 	UBaseZombieAnimInstance* zombieAnimInstance = Cast<UBaseZombieAnimInstance>(zombieParent->GetMesh()->GetAnimInstance());
-	zombieAnimInstance->stateNum = 3;
+	zombieAnimInstance->stateNum = state;
 
 	behaviorComp->StartTree(*zombieParent->behaviorTree);
+}
+
+void AZombieController::Enrage()
+{
+	if (zombieParent->dead)
+	{
+		return;
+	}
+
+	blackboardComp->SetValueAsEnum(FName("ZombieState"), 2);
+	UBaseZombieAnimInstance* zombieAnimInstance = Cast<UBaseZombieAnimInstance>(zombieParent->GetMesh()->GetAnimInstance());
+	zombieAnimInstance->stateNum = 2;
 }

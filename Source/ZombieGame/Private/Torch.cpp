@@ -1,8 +1,8 @@
 #include "Torch.h"
 #include "Engine/World.h"
 #include "TimerManager.h"
-
-
+#include "ZombieController.h"
+#include "Zombie.h"
 
 
 
@@ -18,13 +18,13 @@ ATorch::ATorch()
 	Light = CreateDefaultSubobject<USpotLightComponent>(TEXT("Light"));
 	Light->SetupAttachment(Mesh);
 
+	LightDetection = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Light Detection Mesh"));
+	LightDetection->SetupAttachment(Light);
+
 	MaxBatteryLife = 1.0f;
 	CurrentBatteryLife = MaxBatteryLife;
 	DrainBatteryLifeTickTime = 3.5f;
 	BatteryDrainPerTick = 0.05f;
-
-
-
 }
 
 // Called when the game starts or when spawned
@@ -40,15 +40,10 @@ void ATorch::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-
 	if (!CanTurnOn())
 	{
 		CurrentBatteryLife = CurrentBatteryLife - (DeltaTime * BatteryDrainPerTick);
 	}
-
-	
-
-	
 
 	if (CurrentBatteryLife <= 0)
 	{
@@ -57,14 +52,23 @@ void ATorch::Tick(float DeltaTime)
 		CanTurnOn();
 	}
 
+	//Checks to see if Zombie's are colliding with the torch light, and if they are, they are enraged
+	if (bLightIsOn)
+	{
+		TArray<AActor*> overlappingZombies;
+		LightDetection->GetOverlappingActors(overlappingZombies, TSubclassOf<AZombie>());
 
-
-
+		for (int i = 0; i < overlappingZombies.Num(); i++)
+		{
+			AZombie* zombie = Cast<AZombie>(overlappingZombies[i]);
+			AZombieController* zombieController = Cast<AZombieController>(zombie->GetController());
+			zombieController->Enrage();
+		}
+	}
 }
 
 void ATorch::TurnOn()
 {
-
 	check(Light);
 	if (CanTurnOn())
 	{
@@ -84,7 +88,6 @@ void ATorch::TurnOff()
 		bLightIsOn = false;
 		Light->SetIntensity(0.0f);
 		LightToggled.Broadcast(bLightIsOn);
-
 	}
 }
 

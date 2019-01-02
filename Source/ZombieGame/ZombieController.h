@@ -22,7 +22,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-		void SetState(int state);
+	void SetState(int state);
+
+	UFUNCTION(BlueprintCallable)
+	void Enrage(); //Sets the Zombie to chase the Player
 
 protected:
 	UBehaviorTreeComponent* behaviorComp;

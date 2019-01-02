@@ -42,6 +42,9 @@ public:
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Torch")
 		USpotLightComponent *Light;
 
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Torch")
+		UStaticMeshComponent *LightDetection;
+
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Torch")
 		float MaxBatteryLife;
 
@@ -76,7 +79,6 @@ public:
 	bool torchActive;
 	
 private:
-
 	void BatteryDrain();
 	
 	bool CanTurnOn();
