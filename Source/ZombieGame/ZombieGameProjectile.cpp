@@ -4,6 +4,7 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/BoxComponent.h"
 #include "Zombie.h"
+#include "Kismet/GameplayStatics.h"
 
 AZombieGameProjectile::AZombieGameProjectile() 
 {
@@ -37,12 +38,14 @@ void AZombieGameProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherAct
 	{
 		AZombie* zombie = Cast<AZombie>(OtherActor);
 		zombie->DealDamage(20);
+
+		UGameplayStatics::PlaySoundAtLocation(this, hitSound, OtherActor->GetActorLocation());
+
 		Destroy();
 	}
-
-	// Only add impulse and destroy projectile if we hit a physics
-	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
+	else if (OtherActor != this)
 	{
+		UGameplayStatics::PlaySoundAtLocation(this, hitWallSound, OtherActor->GetActorLocation());
 		Destroy();
 	}
 }

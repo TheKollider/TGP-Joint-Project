@@ -27,11 +27,23 @@ public:
 	//Delegate to be binded with TimelineFloatReturn()
 	FOnTimelineFloat GlowColourInterpFunction{};
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float health; //Zombie's Health
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float zombieDamage; //Zombie's Damage
 
 	UPROPERTY(VisibleAnywhere)
 	bool dead = false;
+
+	UPROPERTY(EditAnywhere, Category = "Audio")
+	class UAudioComponent* audioComponent;
+
+	UPROPERTY(EditAnywhere)
+	class USoundBase* enrageSound;
+
+	UPROPERTY(EditAnywhere)
+	class USoundBase* deathSound;
 
 private:
 	FLinearColor glowColour;
@@ -48,8 +60,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void ChangeGlowColour(FLinearColor colour);
 
+	//Enrages the Zombie causing them to chase the player
 	UFUNCTION(BlueprintCallable)
 		void Enrage();
+
+	UFUNCTION(BlueprintCallable)
+		void PlayEnrageSound();
+
+	UFUNCTION(BlueprintCallable)
+		void PlayDeathSound();
 
 protected:
 	// Called when the game starts or when spawned
@@ -57,5 +76,5 @@ protected:
 
 private:
 	UFUNCTION()
-		void GlowColourTimelineFloatReturn(float value);
+	void GlowColourTimelineFloatReturn(float value);
 };

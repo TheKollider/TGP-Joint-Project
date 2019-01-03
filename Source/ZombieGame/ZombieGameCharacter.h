@@ -45,11 +45,23 @@ class AZombieGameCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UMotionControllerComponent* L_MotionController;
 
+	UPROPERTY(EditAnywhere, Category = "Audio")
+	class UAudioComponent* audioComponent;
+
 public:
 	AZombieGameCharacter();
 
 	UPROPERTY(EditAnywhere, Category = "Debug")
 	ATorch* _theTorch;
+
+	UPROPERTY(EditAnywhere)
+	float health;
+
+	UPROPERTY(EditAnywhere)
+		class USoundBase* gunEquipSound;
+
+	UPROPERTY(EditAnywhere)
+		class USoundBase* torchEquipSound;
 
 private:
 	bool canFire;
@@ -87,6 +99,9 @@ public:
 	uint32 bUsingMotionControllers : 1;
 
 	void ResetBattery();
+
+	UFUNCTION(BlueprintCallable)
+	void DealDamage(float damage);
 
 protected:
 	

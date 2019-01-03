@@ -3,8 +3,7 @@
 #include "TimerManager.h"
 #include "ZombieController.h"
 #include "Zombie.h"
-
-
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ATorch::ATorch()
@@ -51,44 +50,33 @@ void ATorch::Tick(float DeltaTime)
 		CurrentBatteryLife = 0;
 		CanTurnOn();
 	}
-
-	/*
-	//Checks to see if Zombie's are colliding with the torch light, and if they are, they are enraged
-	if (bLightIsOn)
-	{
-		TArray<AActor*> overlappingZombies;
-		LightDetection->GetOverlappingActors(overlappingZombies, TSubclassOf<AZombie>());
-
-		for (int i = 0; i < overlappingZombies.Num(); i++)
-		{
-			AZombie* zombie = Cast<AZombie>(overlappingZombies[i]);
-			zombie->Enrage();
-		}
-	}
-	*/
 }
 
 void ATorch::TurnOn()
 {
 	check(Light);
-	if (CanTurnOn())
+	if (CanTurnOn() && torchActive)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Torch is on"));
 		bLightIsOn = true;
 		Light->SetIntensity(3000.0f);
 		LightToggled.Broadcast(bLightIsOn);
+
+		UGameplayStatics::PlaySoundAtLocation(this, torchOnSound, GetActorLocation());
 	}
 }
 
 void ATorch::TurnOff()
 {
 	check(Light);
-	if (!CanTurnOn())
+	if (!CanTurnOn() && torchActive)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Torch is off"));
 		bLightIsOn = false;
 		Light->SetIntensity(0.0f);
 		LightToggled.Broadcast(bLightIsOn);
+
+		UGameplayStatics::PlaySoundAtLocation(this, torchOffSound, GetActorLocation());
 	}
 }
 

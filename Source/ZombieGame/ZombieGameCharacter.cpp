@@ -13,6 +13,7 @@
 #include "Torch.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/World.h"
+#include "Components/AudioComponent.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -84,6 +85,10 @@ AZombieGameCharacter::AZombieGameCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
+
+	audioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("Player's Audio Component"));
+
+	Tags.Add(FName("Player"));
 }
 
 void AZombieGameCharacter::BeginPlay()
@@ -261,7 +266,17 @@ void AZombieGameCharacter::ToggleTorch()
 
 void AZombieGameCharacter::EquipGun()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Gun Equiped"));
+	if (!_theTorch->torchActive)
+	{
+		return;
+	}
+
+	if (audioComponent->IsPlaying())
+	{
+		audioComponent->Stop();
+	}
+	audioComponent->SetSound(gunEquipSound);
+	audioComponent->Play();
 
 	FP_Gun->SetVisibility(true);
 	canFire = true;
@@ -273,7 +288,17 @@ void AZombieGameCharacter::EquipGun()
 
 void AZombieGameCharacter::EquipTorch()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Torch Equiped"));
+	if (_theTorch->torchActive)
+	{
+		return;
+	}
+
+	if (audioComponent->IsPlaying())
+	{
+		audioComponent->Stop();
+	}
+	audioComponent->SetSound(torchEquipSound);
+	audioComponent->Play();
 
 	FP_Gun->SetVisibility(false);
 	canFire = false;
@@ -285,6 +310,11 @@ void AZombieGameCharacter::EquipTorch()
 void AZombieGameCharacter::ResetBattery()
 {
 	_theTorch->CurrentBatteryLife = 1.0f;
+}
+
+void AZombieGameCharacter::DealDamage(float damage)
+{
+	health -= damage;
 }
 
 void AZombieGameCharacter::TurnAtRate(float Rate)

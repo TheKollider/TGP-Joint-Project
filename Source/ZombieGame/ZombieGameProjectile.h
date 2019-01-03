@@ -11,13 +11,18 @@ class AZombieGameProjectile : public AActor
 {
 	GENERATED_BODY()
 
-	/** Sphere collision component */
 	UPROPERTY(VisibleDefaultsOnly, Category=Projectile)
 	class UBoxComponent* BoxCollision;
 
 	/** Projectile movement component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	class UProjectileMovementComponent* ProjectileMovement;
+
+	UPROPERTY(EditAnywhere)
+		class USoundBase* hitSound;
+
+	UPROPERTY(EditAnywhere)
+		class USoundBase* hitWallSound;
 
 public:
 	AZombieGameProjectile();
