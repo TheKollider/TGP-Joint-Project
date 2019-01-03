@@ -68,11 +68,6 @@ void AZombieController::SetState(int state)
 
 void AZombieController::Enrage()
 {
-	if (zombieParent->dead)
-	{
-		return;
-	}
-
 	blackboardComp->SetValueAsEnum(FName("ZombieState"), 2);
 	UBaseZombieAnimInstance* zombieAnimInstance = Cast<UBaseZombieAnimInstance>(zombieParent->GetMesh()->GetAnimInstance());
 	zombieAnimInstance->stateNum = 2;

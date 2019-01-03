@@ -48,6 +48,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void ChangeGlowColour(FLinearColor colour);
 
+	UFUNCTION(BlueprintCallable)
+		void Enrage();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

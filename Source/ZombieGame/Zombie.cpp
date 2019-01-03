@@ -72,3 +72,14 @@ void AZombie::ChangeGlowColour(FLinearColor colour)
 	glowColour = colour;
 	glowColourTimeLine->PlayFromStart();
 }
+
+void AZombie::Enrage()
+{
+	if (dead)
+	{
+		return;
+	}
+
+	AZombieController* controller = Cast<AZombieController>(GetController());
+	controller->Enrage();
+}

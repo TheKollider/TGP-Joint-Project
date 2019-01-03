@@ -52,6 +52,7 @@ void ATorch::Tick(float DeltaTime)
 		CanTurnOn();
 	}
 
+	/*
 	//Checks to see if Zombie's are colliding with the torch light, and if they are, they are enraged
 	if (bLightIsOn)
 	{
@@ -61,10 +62,10 @@ void ATorch::Tick(float DeltaTime)
 		for (int i = 0; i < overlappingZombies.Num(); i++)
 		{
 			AZombie* zombie = Cast<AZombie>(overlappingZombies[i]);
-			AZombieController* zombieController = Cast<AZombieController>(zombie->GetController());
-			zombieController->Enrage();
+			zombie->Enrage();
 		}
 	}
+	*/
 }
 
 void ATorch::TurnOn()
