@@ -1,10 +1,9 @@
 #include "Torch.h"
 #include "Engine/World.h"
 #include "TimerManager.h"
-
-
-
-
+#include "ZombieController.h"
+#include "Zombie.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ATorch::ATorch()
@@ -18,13 +17,13 @@ ATorch::ATorch()
 	Light = CreateDefaultSubobject<USpotLightComponent>(TEXT("Light"));
 	Light->SetupAttachment(Mesh);
 
+	LightDetection = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Light Detection Mesh"));
+	LightDetection->SetupAttachment(Light);
+
 	MaxBatteryLife = 1.0f;
 	CurrentBatteryLife = MaxBatteryLife;
 	DrainBatteryLifeTickTime = 3.5f;
 	BatteryDrainPerTick = 0.05f;
-
-
-
 }
 
 // Called when the game starts or when spawned
@@ -32,8 +31,7 @@ void ATorch::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
-
+	TurnOff(); //Setting the Light to be off by default
 }
 
 // Called every frame
@@ -41,15 +39,10 @@ void ATorch::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-
 	if (!CanTurnOn())
 	{
 		CurrentBatteryLife = CurrentBatteryLife - (DeltaTime * BatteryDrainPerTick);
 	}
-
-	
-
-	
 
 	if (CurrentBatteryLife <= 0)
 	{
@@ -57,35 +50,33 @@ void ATorch::Tick(float DeltaTime)
 		CurrentBatteryLife = 0;
 		CanTurnOn();
 	}
-
-
-
-
 }
 
 void ATorch::TurnOn()
 {
-
 	check(Light);
-	if (CanTurnOn())
+	if (CanTurnOn() && torchActive)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Torch is on"));
 		bLightIsOn = true;
 		Light->SetIntensity(3000.0f);
 		LightToggled.Broadcast(bLightIsOn);
+
+		UGameplayStatics::PlaySoundAtLocation(this, torchOnSound, GetActorLocation());
 	}
 }
 
 void ATorch::TurnOff()
 {
 	check(Light);
-	if (!CanTurnOn())
+	if (!CanTurnOn() && torchActive)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Torch is off"));
 		bLightIsOn = false;
 		Light->SetIntensity(0.0f);
 		LightToggled.Broadcast(bLightIsOn);
 
+		UGameplayStatics::PlaySoundAtLocation(this, torchOffSound, GetActorLocation());
 	}
 }
 
@@ -121,5 +112,5 @@ void ATorch::BatteryDrain()
 
 bool ATorch::CanTurnOn()
 {
-	return (CurrentBatteryLife > 0.0f && !bLightIsOn);
+	return (CurrentBatteryLife > 0.0f && !bLightIsOn && torchActive);
 }

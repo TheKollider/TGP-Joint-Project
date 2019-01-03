@@ -7,6 +7,8 @@
 #include "Engine/World.h"
 #include "Components/PointLightComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Components/AudioComponent.h"
+#include "Components/BoxComponent.h"
 
 // Sets default values
 AZombie::AZombie()
@@ -19,6 +21,10 @@ AZombie::AZombie()
 
 	glowColourTimeLine = CreateDefaultSubobject<UTimelineComponent>(TEXT("GlowColourTimeLine"));
 	GlowColourInterpFunction.BindUFunction(this, FName("GlowColourTimelineFloatReturn"));
+
+	audioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("Audio Component"));
+
+	Tags.Add(FName("Zombie"));
 }
 
 // Called when the game starts or when spawned
@@ -69,4 +75,37 @@ void AZombie::ChangeGlowColour(FLinearColor colour)
 {
 	glowColour = colour;
 	glowColourTimeLine->PlayFromStart();
+}
+
+void AZombie::Enrage()
+{
+	if (dead)
+	{
+		return;
+	}
+
+	AZombieController* controller = Cast<AZombieController>(GetController());
+	controller->Enrage();
+}
+
+void AZombie::PlayEnrageSound()
+{
+	if (audioComponent->IsPlaying())
+	{
+		audioComponent->Stop();
+	}
+
+	audioComponent->SetSound(enrageSound);
+	audioComponent->Play();
+}
+
+void AZombie::PlayDeathSound()
+{
+	if (audioComponent->IsPlaying())
+	{
+		audioComponent->Stop();
+	}
+
+	audioComponent->SetSound(deathSound);
+	audioComponent->Play();
 }

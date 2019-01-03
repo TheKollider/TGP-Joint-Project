@@ -11,13 +11,18 @@ class AZombieGameProjectile : public AActor
 {
 	GENERATED_BODY()
 
-	/** Sphere collision component */
 	UPROPERTY(VisibleDefaultsOnly, Category=Projectile)
-	class USphereComponent* CollisionComp;
+	class UBoxComponent* BoxCollision;
 
 	/** Projectile movement component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	class UProjectileMovementComponent* ProjectileMovement;
+
+	UPROPERTY(EditAnywhere)
+		class USoundBase* hitSound;
+
+	UPROPERTY(EditAnywhere)
+		class USoundBase* hitWallSound;
 
 public:
 	AZombieGameProjectile();
@@ -27,7 +32,7 @@ public:
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 	/** Returns CollisionComp subobject **/
-	FORCEINLINE class USphereComponent* GetCollisionComp() const { return CollisionComp; }
+	FORCEINLINE class UBoxComponent* GetCollisionComp() const { return BoxCollision; }
 	/** Returns ProjectileMovement subobject **/
 	FORCEINLINE class UProjectileMovementComponent* GetProjectileMovement() const { return ProjectileMovement; }
 };

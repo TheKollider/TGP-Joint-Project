@@ -7,6 +7,7 @@
 #include "Zombie.h"
 #include "Engine.h"
 #include "ZombieGameCharacter.h"
+#include "BaseZombieAnimInstance.h"
 
 AZombieController::AZombieController()
 {
@@ -43,8 +44,13 @@ void AZombieController::Tick(float DeltaTime)
 	blackboardComp->SetValueAsObject(FName("Player"), player);
 
 	//Sets the Zombie's State to Dead if it's health gets to or below 0
-	if (zombieParent->health <= 0.0f)
+	if (!zombieParent->dead && zombieParent->health <= 0.0f)
 	{
+		zombieParent->dead = true;
+		blackboardComp->SetValueAsEnum(FName("Dead"), true);
+		zombieParent->GetCharacterMovement()->Deactivate();
+	
+
 		SetState(3);
 	}
 }
@@ -52,6 +58,17 @@ void AZombieController::Tick(float DeltaTime)
 void AZombieController::SetState(int state)
 {
 	behaviorComp->StopTree();
+
 	blackboardComp->SetValueAsEnum(FName("ZombieState"), state);
+	UBaseZombieAnimInstance* zombieAnimInstance = Cast<UBaseZombieAnimInstance>(zombieParent->GetMesh()->GetAnimInstance());
+	zombieAnimInstance->stateNum = state;
+
 	behaviorComp->StartTree(*zombieParent->behaviorTree);
+}
+
+void AZombieController::Enrage()
+{
+	blackboardComp->SetValueAsEnum(FName("ZombieState"), 2);
+	UBaseZombieAnimInstance* zombieAnimInstance = Cast<UBaseZombieAnimInstance>(zombieParent->GetMesh()->GetAnimInstance());
+	zombieAnimInstance->stateNum = 2;
 }
