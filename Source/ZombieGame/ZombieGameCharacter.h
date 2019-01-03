@@ -51,6 +51,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Debug")
 	ATorch* _theTorch;
 
+	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
+	bool bIsCarryingObjective;
+
 protected:
 	virtual void BeginPlay();
 
