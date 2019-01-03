@@ -28,9 +28,10 @@ AExtractionZone::AExtractionZone()
 
 }
 
-void AExtractionZone::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void AExtractionZone::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+	int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	AZombieGameCharacter* MyPawn = Cast<AZombieGameCharacter>(OtherActor);
+	/*AZombieGameCharacter* MyPawn = Cast<AZombieGameCharacter>(OtherActor);
 
 	if (MyPawn == nullptr)
 	{
@@ -52,7 +53,7 @@ void AExtractionZone::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AA
 	else
 	{
 		UGameplayStatics::PlaySound2D(this, ObjectiveMissingSound);
-	}
+	}*/
 
 	UE_LOG(LogTemp, Log, TEXT("Overlapped with the extraction zone"));
 
