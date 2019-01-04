@@ -27,6 +27,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Enrage(); //Sets the Zombie to chase the Player
 
+	UFUNCTION(BlueprintCallable)
+		void GetRandomPosition(FVector randomPosition);
+
 protected:
 	UBehaviorTreeComponent* behaviorComp;
 	UBlackboardComponent* blackboardComp;
