@@ -8,6 +8,7 @@
 #include "Engine.h"
 #include "ZombieGameCharacter.h"
 #include "BaseZombieAnimInstance.h"
+#include "AI/NavigationSystemBase.h"
 
 AZombieController::AZombieController()
 {
@@ -71,4 +72,10 @@ void AZombieController::Enrage()
 	blackboardComp->SetValueAsEnum(FName("ZombieState"), 2);
 	UBaseZombieAnimInstance* zombieAnimInstance = Cast<UBaseZombieAnimInstance>(zombieParent->GetMesh()->GetAnimInstance());
 	zombieAnimInstance->stateNum = 2;
+}
+
+void AZombieController::GetRandomPosition(FVector randomPosition)
+{
+	blackboardComp->SetValueAsVector(FName("RandomLocation"), randomPosition);
+	behaviorComp->RestartTree();
 }

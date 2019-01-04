@@ -4,6 +4,8 @@
 #include "ZombieController.h"
 #include "Zombie.h"
 #include "Kismet/GameplayStatics.h"
+#include "ZombieGameCharacter.h"
+#include "Components/SkeletalMeshComponent.h"
 
 // Sets default values
 ATorch::ATorch()
@@ -31,7 +33,10 @@ void ATorch::BeginPlay()
 {
 	Super::BeginPlay();
 
-	TurnOff(); //Setting the Light to be off by default
+	//Setting the Light to be off by default
+	bLightIsOn = false;
+	Light->SetIntensity(0.0f);
+	LightToggled.Broadcast(bLightIsOn);
 }
 
 // Called every frame

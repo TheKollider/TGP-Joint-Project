@@ -89,6 +89,9 @@ AZombieGameCharacter::AZombieGameCharacter()
 	audioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("Player's Audio Component"));
 
 	Tags.Add(FName("Player"));
+
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
 }
 
 void AZombieGameCharacter::BeginPlay()
@@ -101,6 +104,11 @@ void AZombieGameCharacter::BeginPlay()
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
 	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
 
+	//Attaches the Torch to the player's first person view so it moves with the player
+	_theTorch->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+	_theTorch->SetActorScale3D(FVector(5.0f, 5.0f, 5.0f));
+	_theTorch->SetActorRelativeLocation(FVector(-13.0f, -1.0f, 5.0f));
+
 	// Show or hide the two versions of the gun based on whether or not we're using motion controllers.
 	if (bUsingMotionControllers)
 	{
@@ -112,6 +120,10 @@ void AZombieGameCharacter::BeginPlay()
 		VR_Gun->SetHiddenInGame(true, true);
 		Mesh1P->SetHiddenInGame(false, true);
 	}
+}
+
+void AZombieGameCharacter::Tick(float DeltaTime)
+{
 }
 
 //////////////////////////////////////////////////////////////////////////

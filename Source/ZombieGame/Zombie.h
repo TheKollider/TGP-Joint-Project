@@ -33,7 +33,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float zombieDamage; //Zombie's Damage
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool dead = false;
 
 	UPROPERTY(EditAnywhere, Category = "Audio")
