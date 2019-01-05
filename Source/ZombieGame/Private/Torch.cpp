@@ -44,16 +44,22 @@ void ATorch::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (!CanTurnOn())
+	if (bLightIsOn)
 	{
 		CurrentBatteryLife = CurrentBatteryLife - (DeltaTime * BatteryDrainPerTick);
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::SanitizeFloat(CurrentBatteryLife));
 	}
 
-	if (CurrentBatteryLife <= 0)
+	if (CurrentBatteryLife <= 0 && !batteryDead)
 	{
 		TurnOff();
 		CurrentBatteryLife = 0;
-		CanTurnOn();
+		batteryDead = true;
+	}
+
+	if (CanTurnOn())
+	{
+		batteryDead = false;
 	}
 }
 
@@ -62,7 +68,6 @@ void ATorch::TurnOn()
 	check(Light);
 	if (CanTurnOn() && torchActive)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Torch is on"));
 		bLightIsOn = true;
 		Light->SetIntensity(3000.0f);
 		LightToggled.Broadcast(bLightIsOn);
@@ -76,7 +81,6 @@ void ATorch::TurnOff()
 	check(Light);
 	if (!CanTurnOn() && torchActive)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Torch is off"));
 		bLightIsOn = false;
 		Light->SetIntensity(0.0f);
 		LightToggled.Broadcast(bLightIsOn);

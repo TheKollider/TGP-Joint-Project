@@ -89,9 +89,6 @@ AZombieGameCharacter::AZombieGameCharacter()
 	audioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("Player's Audio Component"));
 
 	Tags.Add(FName("Player"));
-
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
 }
 
 void AZombieGameCharacter::BeginPlay()
@@ -120,10 +117,6 @@ void AZombieGameCharacter::BeginPlay()
 		VR_Gun->SetHiddenInGame(true, true);
 		Mesh1P->SetHiddenInGame(false, true);
 	}
-}
-
-void AZombieGameCharacter::Tick(float DeltaTime)
-{
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -327,6 +320,7 @@ void AZombieGameCharacter::ResetBattery()
 void AZombieGameCharacter::DealDamage(float damage)
 {
 	health -= damage;
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::SanitizeFloat(health));
 }
 
 void AZombieGameCharacter::TurnAtRate(float Rate)

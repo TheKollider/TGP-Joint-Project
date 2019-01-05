@@ -15,6 +15,9 @@ class ZOMBIEGAME_API AZombie : public ACharacter
 	UPROPERTY(VisibleAnywhere)
 	class USceneComponent* zombieRoot;
 
+	UPROPERTY(VisibleDefaultsOnly)
+	class UBoxComponent* AttackTriggerBox;
+
 	class UTimelineComponent* glowColourTimeLine;
 
 public:
@@ -48,6 +51,8 @@ public:
 private:
 	FLinearColor glowColour;
 
+	bool enraged;
+
 public:
 	// Sets default values for this character's properties
 	AZombie();
@@ -77,4 +82,10 @@ protected:
 private:
 	UFUNCTION()
 	void GlowColourTimelineFloatReturn(float value);
+
+	UFUNCTION()
+	void BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
+
+	UFUNCTION()
+	void EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 };

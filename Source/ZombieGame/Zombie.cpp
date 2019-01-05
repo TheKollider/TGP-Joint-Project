@@ -9,6 +9,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Components/AudioComponent.h"
 #include "Components/BoxComponent.h"
+#include "Components/CapsuleComponent.h"
 
 // Sets default values
 AZombie::AZombie()
@@ -18,6 +19,12 @@ AZombie::AZombie()
 
 	zombieRoot = CreateDefaultSubobject<USceneComponent>(TEXT("ZombieRoot"));
 	RootComponent = zombieRoot;
+
+	AttackTriggerBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Collision"));
+	AttackTriggerBox->BodyInstance.SetCollisionProfileName("Trigger");
+	AttackTriggerBox->SetupAttachment(GetCapsuleComponent());
+	AttackTriggerBox->InitBoxExtent(FVector(64.0f, 64.0f, 64.0f));
+	AttackTriggerBox->CanCharacterStepUpOn = ECanBeCharacterBase::ECB_No;
 
 	glowColourTimeLine = CreateDefaultSubobject<UTimelineComponent>(TEXT("GlowColourTimeLine"));
 	GlowColourInterpFunction.BindUFunction(this, FName("GlowColourTimelineFloatReturn"));
@@ -31,6 +38,9 @@ AZombie::AZombie()
 void AZombie::BeginPlay()
 {
 	Super::BeginPlay();
+
+	AttackTriggerBox->OnComponentBeginOverlap.AddDynamic(this, &AZombie::BeginOverlap);
+	AttackTriggerBox->OnComponentEndOverlap.AddDynamic(this, &AZombie::EndOverlap);
 	
 	AZombieController* AIController = Cast<AZombieController>(GetController());
 	AZombieGameCharacter* player = Cast<AZombieGameCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
@@ -60,6 +70,24 @@ void AZombie::GlowColourTimelineFloatReturn(float value)
 	}
 }
 
+void AZombie::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
+{
+	if (OtherActor->ActorHasTag(FName("Player")))
+	{
+		AZombieController* controller = Cast<AZombieController>(GetController());
+		controller->SetState(4);
+	}
+}
+
+void AZombie::EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	if (OtherActor->ActorHasTag(FName("Player")))
+	{
+		AZombieController* controller = Cast<AZombieController>(GetController());
+		controller->SetState(2);
+	}
+}
+
 // Called every frame
 void AZombie::Tick(float DeltaTime)
 {
@@ -79,11 +107,13 @@ void AZombie::ChangeGlowColour(FLinearColor colour)
 
 void AZombie::Enrage()
 {
-	if (dead)
+	if (dead || enraged)
 	{
 		return;
 	}
 
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("Enraged"));
+	enraged = true;
 	AZombieController* controller = Cast<AZombieController>(GetController());
 	controller->Enrage();
 }
