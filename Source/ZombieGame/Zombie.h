@@ -15,6 +15,9 @@ class ZOMBIEGAME_API AZombie : public ACharacter
 	UPROPERTY(VisibleAnywhere)
 	class USceneComponent* zombieRoot;
 
+	UPROPERTY(VisibleDefaultsOnly)
+	class UBoxComponent* AttackTriggerBox;
+
 	class UTimelineComponent* glowColourTimeLine;
 
 public:
@@ -43,10 +46,15 @@ public:
 	class USoundBase* enrageSound;
 
 	UPROPERTY(EditAnywhere)
+	class USoundBase* attackSound;
+
+	UPROPERTY(EditAnywhere)
 	class USoundBase* deathSound;
 
 private:
 	FLinearColor glowColour;
+
+	bool enraged;
 
 public:
 	// Sets default values for this character's properties
@@ -68,6 +76,9 @@ public:
 		void PlayEnrageSound();
 
 	UFUNCTION(BlueprintCallable)
+		void PlayAttackSound();
+
+	UFUNCTION(BlueprintCallable)
 		void PlayDeathSound();
 
 protected:
@@ -77,4 +88,10 @@ protected:
 private:
 	UFUNCTION()
 	void GlowColourTimelineFloatReturn(float value);
+
+	UFUNCTION()
+	void BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
+
+	UFUNCTION()
+	void EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 };

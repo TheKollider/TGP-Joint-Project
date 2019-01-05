@@ -14,6 +14,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Engine/World.h"
 #include "Components/AudioComponent.h"
+#include "Blueprint/UserWidget.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -89,9 +90,6 @@ AZombieGameCharacter::AZombieGameCharacter()
 	audioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("Player's Audio Component"));
 
 	Tags.Add(FName("Player"));
-
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
 }
 
 void AZombieGameCharacter::BeginPlay()
@@ -120,10 +118,6 @@ void AZombieGameCharacter::BeginPlay()
 		VR_Gun->SetHiddenInGame(true, true);
 		Mesh1P->SetHiddenInGame(false, true);
 	}
-}
-
-void AZombieGameCharacter::Tick(float DeltaTime)
-{
 }
 
 //////////////////////////////////////////////////////////////////////////

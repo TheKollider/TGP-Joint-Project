@@ -6,6 +6,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "ZombieGameCharacter.generated.h"
+
 class UInputComponent;
 
 UCLASS(config=Game)
@@ -54,7 +55,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Debug")
 	ATorch* _theTorch;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float health;
 
 	UPROPERTY(EditAnywhere)
@@ -70,9 +71,6 @@ protected:
 	virtual void BeginPlay();
 
 public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseTurnRate;
