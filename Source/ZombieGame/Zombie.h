@@ -46,6 +46,9 @@ public:
 	class USoundBase* enrageSound;
 
 	UPROPERTY(EditAnywhere)
+	class USoundBase* attackSound;
+
+	UPROPERTY(EditAnywhere)
 	class USoundBase* deathSound;
 
 private:
@@ -71,6 +74,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void PlayEnrageSound();
+
+	UFUNCTION(BlueprintCallable)
+		void PlayAttackSound();
 
 	UFUNCTION(BlueprintCallable)
 		void PlayDeathSound();

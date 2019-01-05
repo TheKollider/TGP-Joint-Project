@@ -129,6 +129,17 @@ void AZombie::PlayEnrageSound()
 	audioComponent->Play();
 }
 
+void AZombie::PlayAttackSound()
+{
+	if (audioComponent->IsPlaying())
+	{
+		audioComponent->Stop();
+	}
+
+	audioComponent->SetSound(attackSound);
+	audioComponent->Play();
+}
+
 void AZombie::PlayDeathSound()
 {
 	if (audioComponent->IsPlaying())

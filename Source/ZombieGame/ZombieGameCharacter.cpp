@@ -14,6 +14,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Engine/World.h"
 #include "Components/AudioComponent.h"
+#include "Blueprint/UserWidget.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -320,7 +321,6 @@ void AZombieGameCharacter::ResetBattery()
 void AZombieGameCharacter::DealDamage(float damage)
 {
 	health -= damage;
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::SanitizeFloat(health));
 }
 
 void AZombieGameCharacter::TurnAtRate(float Rate)

@@ -6,6 +6,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "ZombieGameCharacter.generated.h"
+
 class UInputComponent;
 
 UCLASS(config=Game)
@@ -54,7 +55,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Debug")
 	ATorch* _theTorch;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float health;
 
 	UPROPERTY(EditAnywhere)
