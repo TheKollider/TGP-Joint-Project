@@ -47,7 +47,6 @@ void ATorch::Tick(float DeltaTime)
 	if (bLightIsOn)
 	{
 		CurrentBatteryLife = CurrentBatteryLife - (DeltaTime * BatteryDrainPerTick);
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::SanitizeFloat(CurrentBatteryLife));
 	}
 
 	if (CurrentBatteryLife <= 0 && !batteryDead)

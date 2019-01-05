@@ -112,7 +112,6 @@ void AZombie::Enrage()
 		return;
 	}
 
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("Enraged"));
 	enraged = true;
 	AZombieController* controller = Cast<AZombieController>(GetController());
 	controller->Enrage();
