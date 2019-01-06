@@ -149,3 +149,8 @@ void AZombie::PlayDeathSound()
 	audioComponent->SetSound(deathSound);
 	audioComponent->Play();
 }
+
+void AZombie::MuteZombie()
+{
+	audioComponent->VolumeMultiplier = 0.0f;
+}

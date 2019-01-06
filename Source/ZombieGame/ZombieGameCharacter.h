@@ -58,6 +58,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float health;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool playerDead;
+
 	UPROPERTY(EditAnywhere)
 		class USoundBase* gunEquipSound;
 
