@@ -14,7 +14,12 @@ class ZOMBIEGAME_API AZombieGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+public:
+
+	AZombieGameMode();
+
+	void CompletedMission(APawn* InstigatorPawn);
 	
-	
-	
+	UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
+		void OnMissionCompleted(APawn* InstigatorPawn);
 };

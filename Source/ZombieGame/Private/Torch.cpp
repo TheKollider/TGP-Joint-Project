@@ -71,7 +71,7 @@ void ATorch::TurnOn()
 	{
 
 		bLightIsOn = true;
-		Light->SetIntensity(300.0f);
+		Light->SetIntensity(250.0f);
 		LightToggled.Broadcast(bLightIsOn);
 	}
 }

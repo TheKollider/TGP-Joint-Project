@@ -4,8 +4,9 @@
 #include "Components/BoxComponent.h"
 #include "Components//DecalComponent.h"
 #include "ZombieGameCharacter.h"
-
+#include "ZombieGameGameMode.h"
 #include "Kismet/GameplayStatics.h"
+
 
 
 // Sets default values
@@ -22,16 +23,14 @@ AExtractionZone::AExtractionZone()
 
 	OverlapComp->OnComponentBeginOverlap.AddDynamic(this, &AExtractionZone::HandleOverlap);
 
-	DecalComp = CreateDefaultSubobject<UDecalComponent>(TEXT("DecalComp"));
-	DecalComp->DecalSize = FVector(200.0f);
-	DecalComp->SetupAttachment(RootComponent);
+	
 
 }
 
 void AExtractionZone::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	/*AZombieGameCharacter* MyPawn = Cast<AZombieGameCharacter>(OtherActor);
+	{
+	AZombieGameCharacter* MyPawn = Cast<AZombieGameCharacter>(OtherActor);
 
 	if (MyPawn == nullptr)
 	{
@@ -46,17 +45,26 @@ void AExtractionZone::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AA
 		{
 			GM->CompleteMission(MyPawn);
 			UGameplayStatics::PlaySound2D(this, ObjectiveCompleteSound);
-
-
+			UGameplayStatics::PlaySound2D(this, ExplosionSound);
+			play_effect();
 		}
+
+		
+
 	}
 	else
 	{
 		UGameplayStatics::PlaySound2D(this, ObjectiveMissingSound);
-	}*/
+	}
 
 	UE_LOG(LogTemp, Log, TEXT("Overlapped with the extraction zone"));
 
-}
+	}
 
+void AExtractionZone::play_effect()
+{
+	
+		UGameplayStatics::SpawnEmitterAtLocation(this, ExplosionVFX, GetActorLocation());
+	
+}
 

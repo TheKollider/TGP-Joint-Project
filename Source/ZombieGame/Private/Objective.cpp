@@ -52,6 +52,8 @@ void AObjective::NotifyActorBeginOverlap(AActor * OtherActor)
 	{
 		MyCharacter->bIsCarryingObjective = true;
 
+		UE_LOG(LogTemp, Log, TEXT("Picked up Objective"));
+
 		Destroy();
 	}
 }
