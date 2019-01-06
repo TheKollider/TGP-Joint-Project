@@ -81,6 +81,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void PlayDeathSound();
 
+	UFUNCTION(BlueprintCallable)
+		void MuteZombie();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
