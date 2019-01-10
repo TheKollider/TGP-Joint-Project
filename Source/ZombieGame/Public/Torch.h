@@ -9,6 +9,9 @@
 #include "GameFramework/Actor.h"
 #include "Torch.generated.h"
 
+
+
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTorchDrained, bool, IsDrained);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTorchToggled, float, CurrentBatteryLife);
 
@@ -21,11 +24,7 @@ public:
 	// Sets default values for this actor's properties
 	ATorch();
 
-	UPROPERTY(EditAnywhere)
-	class USoundBase* torchOnSound;
 
-	UPROPERTY(EditAnywhere)
-	class USoundBase* torchOffSound;
 
 protected:
 	// Called when the game starts or when spawned
@@ -43,19 +42,16 @@ public:
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Torch")
 		USpotLightComponent *Light;
 
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Torch")
-		UStaticMeshComponent *LightDetection;
-
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Torch")
 		float MaxBatteryLife;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Torch")
 		float CurrentBatteryLife;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Flashlight")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Torch")
 		float DrainBatteryLifeTickTime;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Flashlight")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Torch")
 		float BatteryDrainPerTick;
 
 	UFUNCTION(BlueprintCallable, Category = "Torch")
@@ -76,11 +72,9 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "Torch")
 		FTorchDrained LightDrained;
-
-	bool batteryDead;
-	bool torchActive;
 	
 private:
+
 	void BatteryDrain();
 	
 	bool CanTurnOn();

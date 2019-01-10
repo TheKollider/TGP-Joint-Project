@@ -12,7 +12,7 @@ class UInputComponent;
 UCLASS(config=Game)
 class AZombieGameCharacter : public ACharacter
 {
-	GENERATED_BODY()
+	//GENERATED_BODY()
 
 	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
