@@ -52,10 +52,10 @@ public:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Torch")
 		float CurrentBatteryLife;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Torch")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Flashlight")
 		float DrainBatteryLifeTickTime;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Torch")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Flashlight")
 		float BatteryDrainPerTick;
 
 	UFUNCTION(BlueprintCallable, Category = "Torch")

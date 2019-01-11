@@ -1,3 +1,4 @@
+// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -5,21 +6,14 @@
 #include "GameFramework/GameModeBase.h"
 #include "ZombieGameGameMode.generated.h"
 
-/**
- *
- */
-UCLASS()
+UCLASS(minimalapi)
 class AZombieGameGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
-
 public:
-
 	AZombieGameGameMode();
-
-	void CompleteMission(APawn* InstigatorPawn);
-
-	UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
-	void OnMissionCompleted(APawn* InstigatorPawn);
 };
+
+
+

@@ -13,11 +13,5 @@
 				"AIModule"
 			]
 		}
-	],
-	"Plugins": [
-		{
-			"Name": "glTFForUE4",
-			"Enabled": true
-		}
 	]
 }

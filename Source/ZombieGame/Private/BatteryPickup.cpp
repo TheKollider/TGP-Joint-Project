@@ -43,12 +43,11 @@ void ABatteryPickup::NotifyActorBeginOverlap(AActor* OtherActor)
 
 	play_effect();
 
-	AZombieGameCharacter* MyCharacter = Cast<AZombieGameCharacter>(OtherActor);
-	if (MyCharacter)
-	{
-		MyCharacter->ResetBattery();
+	AZombieGameCharacter* myCharacter = Cast<AZombieGameCharacter>(OtherActor);
 
-		UE_LOG(LogTemp, Log, TEXT("BATTERY PICKED UP"));
+	if (myCharacter)
+	{
+		myCharacter->ResetBattery();
 
 		Destroy();
 	}

@@ -315,8 +315,7 @@ void AZombieGameCharacter::EquipTorch()
 
 void AZombieGameCharacter::ResetBattery()
 {
-	UE_LOG(LogTemp, Log, TEXT("Battery reset to max value"));
-	_theTorch->CurrentBatteryLife = _theTorch->MaxBatteryLife;
+	_theTorch->CurrentBatteryLife = 1.0f;
 }
 
 void AZombieGameCharacter::DealDamage(float damage)

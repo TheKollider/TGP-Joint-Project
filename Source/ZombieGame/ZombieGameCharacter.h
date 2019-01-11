@@ -73,9 +73,6 @@ public:
 private:
 	bool canFire;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
-	bool bIsCarryingObjective;
-
 protected:
 	virtual void BeginPlay();
 
@@ -132,8 +129,6 @@ protected:
 	void EquipGun();
 
 	void EquipTorch();
-
-	
 
 	
 	/**
