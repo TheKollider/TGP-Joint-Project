@@ -68,7 +68,7 @@ void ATorch::TurnOn()
 	if (CanTurnOn() && torchActive)
 	{
 		bLightIsOn = true;
-		Light->SetIntensity(3000.0f);
+		Light->SetIntensity(300.0f);
 		LightToggled.Broadcast(bLightIsOn);
 
 		UGameplayStatics::PlaySoundAtLocation(this, torchOnSound, GetActorLocation());

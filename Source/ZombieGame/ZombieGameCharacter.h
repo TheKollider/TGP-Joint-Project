@@ -49,6 +49,8 @@ class AZombieGameCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, Category = "Audio")
 	class UAudioComponent* audioComponent;
 
+	
+
 public:
 	AZombieGameCharacter();
 
